@@ -1,7 +1,7 @@
 import 'styles/globals.css'
 
 import Nav from '@/components/Nav'
-import Provider from '@/components/Provider'
+import AuthProvider from './context/AuthProvider'
 
 export const metadata = {
   title: 'Promptopia',
@@ -12,13 +12,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang='en'>
       <body>
-        <div className='main'>
-          <div className='gradient'></div>
-        </div>
-        <div className='app'>
-          <Nav />
-          {children}
-        </div>
+        <AuthProvider>
+          <div className='main'>
+            <div className='gradient'></div>
+          </div>
+          <div className='app'>
+            <Nav />
+            {children}
+          </div>
+        </AuthProvider>
       </body>
     </html>
   )

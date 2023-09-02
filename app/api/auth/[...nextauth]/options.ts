@@ -9,7 +9,7 @@ export const options: NextAuthOptions = {
       clientSecret: process.env.GITHUB_SECRET as string,
     }),
     CredentialsProvider({
-      name: 'Your Account',
+      name: 'Promptopia',
       credentials: {
         username: { label: 'Username', type: 'text', placeholder: 'namkhanh' },
         password: { label: 'Password', type: 'password' },
