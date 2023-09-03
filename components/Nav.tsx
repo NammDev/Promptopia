@@ -27,7 +27,7 @@ const Nav = () => {
 
       {/* Desktop Navigation */}
       <div className='sm:flex hidden'>
-        {session ? (
+        {session?.user ? (
           <div className='flex gap-3 md:gap-5'>
             <Link href='/create-prompt' className='black_btn'>
               Create Post
@@ -37,27 +37,29 @@ const Nav = () => {
             </button>
             <Link href='/profile'>
               <Image
-                src='/assets/images/logo.svg'
-                alt='Profile Avatar'
-                width='37'
-                height='37'
-                className='rouded-full'
+                src={session?.user.image as string}
+                width={37}
+                height={37}
+                className='rounded-full'
+                alt='profile'
               />
             </Link>
           </div>
         ) : (
-          <button onClick={() => signIn()} className='black_btn'>
-            Sign In
-          </button>
+          <div>
+            <button onClick={() => signIn()} className='black_btn'>
+              Sign In
+            </button>
+          </div>
         )}
       </div>
 
       {/* Mobile Navigation */}
       <div className='sm:hidden flex relative'>
-        {session ? (
+        {session?.user ? (
           <div className='flex'>
             <Image
-              src='/assets/images/logo.svg'
+              src={session?.user.image as string}
               alt='Profile Avatar'
               width='37'
               height='37'

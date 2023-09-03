@@ -2,6 +2,7 @@ import 'styles/globals.css'
 
 import Nav from '@/components/Nav'
 import AuthProvider from './context/AuthProvider'
+import Link from 'next/link'
 
 export const metadata = {
   title: 'Promptopia',
