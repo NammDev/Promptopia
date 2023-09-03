@@ -2,6 +2,9 @@ import type { NextAuthOptions } from 'next-auth'
 import GitHubProvider from 'next-auth/providers/github'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
+import { connectToDB } from '@/utils/database'
+import User from '@/models/user'
+
 export const options: NextAuthOptions = {
   providers: [
     GitHubProvider({
@@ -36,4 +39,41 @@ export const options: NextAuthOptions = {
       },
     }),
   ],
+  callbacks: {
+    async session({ session }) {
+      // store the user id from MongoDB to session
+      const sessionUser = await User.findOne({ email: session.user?.email })
+
+      if (sessionUser) {
+        // Cast session.user to a type that includes 'id'
+        ;(session.user as { id: string }).id = sessionUser._id.toString()
+      }
+
+      console.log(session)
+
+      return session
+    },
+    async signIn({ user }) {
+      try {
+        await connectToDB()
+
+        // check if user already exsist
+        const userExists = await User.findOne({ email: user?.email })
+
+        // if not, create a new user
+        if (!userExists) {
+          await User.create({
+            email: user?.email,
+            username: user.name?.replace(' ', '').toLowerCase(),
+            image: user?.image,
+          })
+        }
+
+        return true
+      } catch (error) {
+        console.log(error)
+        return false
+      }
+    },
+  },
 }
