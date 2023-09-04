@@ -49,8 +49,6 @@ export const options: NextAuthOptions = {
         ;(session.user as { id: string }).id = sessionUser._id.toString()
       }
 
-      console.log(session)
-
       return session
     },
     async signIn({ user }) {
