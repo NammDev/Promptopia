@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import Form from '@/components/Form'
 
 const CreatePromptPage = () => {
+  const router = useRouter()
   const { data: session } = useSession()
 
   const [submitting, setSubmitting] = useState(false)
@@ -25,11 +26,19 @@ const CreatePromptPage = () => {
         method: 'POST',
         body: JSON.stringify({
           prompt: post.prompt,
-          userId: session?.user?.image,
+          userId: session?.user.id,
           tag: post.tag,
         }),
       })
-    } catch (error) {}
+
+      if (response.ok) {
+        router.push('/')
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (

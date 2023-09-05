@@ -44,10 +44,7 @@ export const options: NextAuthOptions = {
       // store the user id from MongoDB to session
       const sessionUser = await User.findOne({ email: session.user?.email })
 
-      if (sessionUser) {
-        // Cast session.user to a type that includes 'id'
-        ;(session.user as { id: string }).id = sessionUser._id.toString()
-      }
+      session.user.id = sessionUser._id.toString()
 
       return session
     },
