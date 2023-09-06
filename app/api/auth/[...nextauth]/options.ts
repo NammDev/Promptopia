@@ -24,7 +24,12 @@ export const options: NextAuthOptions = {
         //   headers: { 'Content-Type': 'application/json' },
         // })
         // const user = await res.json()
-        const user = { id: '64', name: 'namkhanh', password: 'namkhanh', email: 'test@gmail.com' }
+        const user = {
+          id: '64',
+          name: 'namkhanh',
+          password: 'namkhanh',
+          email: 'test@gmail.com',
+        }
 
         // If no error and we have user data, return it
         // if (res.ok && user) {
