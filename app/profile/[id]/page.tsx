@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation'
 
 import Profile from '@/components/Profile'
 
-const UserProfile = ({ params }) => {
+const UserProfile = ({ params }: { params: any }) => {
   const searchParams = useSearchParams()
   const userName = searchParams.get('name')
 
@@ -24,7 +24,7 @@ const UserProfile = ({ params }) => {
 
   return (
     <Profile
-      name={userName}
+      name={userName as string}
       desc={`Welcome to ${userName}'s personalized profile page. Explore ${userName}'s exceptional prompts and be inspired by the power of their imagination`}
       data={userPosts}
     />

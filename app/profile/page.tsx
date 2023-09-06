@@ -6,11 +6,18 @@ import { useRouter } from 'next/navigation'
 
 import Profile from '@/components/Profile'
 
+export interface PostInterface {
+  _id: string
+  creator: string
+  prompt: string
+  tag: string
+}
+
 const MyProfile = () => {
   const router = useRouter()
   const { data: session } = useSession()
 
-  const [myPosts, setMyPosts] = useState([])
+  const [myPosts, setMyPosts] = useState<PostInterface[]>([])
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -23,11 +30,11 @@ const MyProfile = () => {
     if (session?.user.id) fetchPosts()
   }, [session?.user.id])
 
-  const handleEdit = (post) => {
+  const handleEdit = (post: PostInterface) => {
     router.push(`/update-prompt?id=${post._id}`)
   }
 
-  const handleDelete = async (post) => {
+  const handleDelete = async (post: PostInterface) => {
     const hasConfirmed = confirm('Are you sure you want to delete this prompt?')
 
     if (hasConfirmed) {

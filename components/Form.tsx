@@ -1,7 +1,28 @@
 import React from 'react'
 import Link from 'next/link'
+import { PostInterface } from '@/app/profile/page'
 
-const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
+const Form = ({
+  type,
+  post,
+  setPost,
+  submitting,
+  handleSubmit,
+}: {
+  type: 'Create' | 'Edit'
+  post: {
+    prompt: string
+    tag: string
+  }
+  setPost: React.Dispatch<
+    React.SetStateAction<{
+      prompt: string
+      tag: string
+    }>
+  >
+  submitting: boolean
+  handleSubmit: (e: any) => {}
+}) => {
   return (
     <section className='w-full max-w-full flex-start flex-col'>
       <h1 className='head_text text-left'>
